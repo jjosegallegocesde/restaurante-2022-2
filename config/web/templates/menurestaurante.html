@@ -9,16 +9,17 @@
     <link rel="stylesheet" href="../static/styles/estilosHome.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 </head>
 <body>
 
     <header>
         {%  include './shared/menu.html' %}
     </header>
-
+    <br><br>
     <section class="my-5">
-        <div class="container">
-            <div class="row row-cols-1 row-cols-md-5 g-3">
+        <div class="container mt-5">
+            <div class="row row-cols-1 row-cols-md-3 g-3">
                 {% for plato in platos %}
                     <div class="col">
                         <div class="card p-3">
@@ -27,7 +28,18 @@
 
                                 <h5>Placa: {{plato.nombre}}</h5>
                                 <p>Entrada: {{plato.precio}}</p>
-                                
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{plato.id}}" aria-expanded="false" aria-controls="collapseExample">
+                                    <i class="bi bi-pencil-fill"></i>
+                                  </button>
+                                <div class="collapse" id="collapseExample{{plato.id}}">
+                                    <div class="card card-body mt-2">
+                                        <form method="POST" action="{% url 'edicion' id=plato.id %}">
+                                            {{formularioRegistro}}
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </form>
+                                    </div>
+                                  </div>
                             </div>
                         </div>
                     </div>
